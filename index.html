@@ -5,8 +5,8 @@
     <script>
       let socket = io();
       let el;
-
       socket.on("time", (timeString) => {
+        console.log(`timeString`, timeString);
         el = document.getElementById("server-time");
         el.innerHTML = "Server time: " + timeString;
       });
