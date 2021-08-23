@@ -42,14 +42,15 @@ const socketIO = require("socket.io");
 const PORT = process.env.PORT || 3000;
 const INDEX = "/index.html";
 
-const server = express()
-  .use((req, res) => res.sendFile(INDEX, { root: __dirname }))
-  .listen(PORT, () => console.log(`Listening on ${PORT}`));
+const server = express().use((req, res) =>
+  res.sendFile(INDEX, { root: __dirname })
+);
 
 const io = socketIO(server);
 
 io.on("connection", (socket) => {
-  console.log("Client connected");
-  setInterval(() => io.emit("time", new Date().toTimeString()), 1000);
+  console.log(`${socket.id} connected`);
+  setInterval(() => socket.emit("time", new Date().toTimeString()), 1000);
   socket.on("disconnect", () => console.log("Client disconnected"));
 });
+server.listen(PORT, () => console.log(`Listening on ${PORT}`));
