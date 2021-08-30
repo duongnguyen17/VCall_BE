@@ -17,6 +17,7 @@ io.on("connection", (socket) => {
   console.log("client connected");
   socket.emit("me", socket.id);
   socket.on("test_req", () => {
+    console.log('test')
     socket.emit("test_res", "ok");
   });
   socket.on("disconnect", () => {
