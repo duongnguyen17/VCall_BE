@@ -16,7 +16,9 @@ const io = require("socket.io")(
 io.on("connection", (socket) => {
   console.log("client connected");
   socket.emit("me", socket.id);
-
+  socket.on("test_req", () => {
+    socket.emit("test_res", "ok");
+  });
   socket.on("disconnect", () => {
     socket.broadcast.emit("callEnded");
   });
@@ -24,8 +26,10 @@ io.on("connection", (socket) => {
   socket.on("callUser", (data) => {
     io.to(data.userToCall).emit("callUser", {
       signal: data.signalData,
-      from: data.from,
-      name: data.name,
+      caller: {
+        from: data.from,
+        name: data.name,
+      },
     });
   });
 
