@@ -14,17 +14,22 @@ const io = require("socket.io")(
 );
 
 io.on("connection", (socket) => {
-  console.log("client connected");
+  console.log("client connected: ", socket.id);
+  // lấy id
   socket.emit("me", socket.id);
+  //test
   socket.on("test_req", () => {
-    console.log('test')
+    console.log("test");
     socket.emit("test_res", "ok");
   });
+  // ngắt kết nối
   socket.on("disconnect", () => {
+    console.log(`disconnect`, socket.id);
     socket.broadcast.emit("callEnded");
   });
-
+  // gửi yêu cầu call
   socket.on("callUser", (data) => {
+    console.log(`callUser`, data);
     io.to(data.userToCall).emit("callUser", {
       signal: data.signalData,
       caller: {
@@ -33,8 +38,9 @@ io.on("connection", (socket) => {
       },
     });
   });
-
+  // chấp nhận yêu cầu
   socket.on("answerCall", (data) => {
+    console.log(`callAccepted`, data);
     io.to(data.to).emit("callAccepted", data.signal);
   });
 });
