@@ -33,8 +33,8 @@ io.on("connection", (socket) => {
     io.to(data.userToCall).emit("callUser", {
       signal: data.signalData,
       caller: {
-        from: data.from,
-        name: data.name,
+        from: data.caller.from,
+        name: data.caller.name,
       },
     });
   });
