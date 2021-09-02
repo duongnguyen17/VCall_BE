@@ -41,7 +41,7 @@ io.on("connection", (socket) => {
   // chấp nhận yêu cầu
   socket.on("answerCall", (data) => {
     console.log(`callAccepted`, data);
-    io.to(data.to).emit("callAccepted", data.signal);
+    io.to(data.to).emit("callAccepted", data.signalData);
   });
 });
 
