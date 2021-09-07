@@ -43,7 +43,7 @@ io.on("connection", (socket) => {
     io.to(data.userToCall).emit("candidate", { candidate: data.candidate });
   });
   // chấp nhận yêu cầu
-  socket.on("answerCall", (data) => {
+  socket.on("acceptCall", (data) => {
     console.log(`callAccepted`, data);
     io.to(data.to).emit("callAccepted", data.signalData);
   });
