@@ -38,6 +38,10 @@ io.on("connection", (socket) => {
       },
     });
   });
+  socket.on("candidate", (data) => {
+    console.log("candidate: ", data.candidate);
+    io.to(data.userToCall).emit("candidate", { candidate: data.candidate });
+  });
   // chấp nhận yêu cầu
   socket.on("answerCall", (data) => {
     console.log(`callAccepted`, data);
