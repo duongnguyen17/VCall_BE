@@ -40,7 +40,7 @@ io.on("connection", (socket) => {
   });
   socket.on("candidate", (data) => {
     console.log("candidate: ", data);
-    io.to(data.userToCall).emit("candidate", { candidate: data.candidate });
+    socket.broadcast.emit("candidate", { candidate: data.candidate });
   });
   // chấp nhận yêu cầu
   socket.on("acceptCall", (data) => {
