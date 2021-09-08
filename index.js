@@ -39,7 +39,7 @@ io.on("connection", (socket) => {
     });
   });
   socket.on("candidate", (data) => {
-    console.log("candidate: ", data.candidate);
+    console.log("candidate: ", data);
     io.to(data.userToCall).emit("candidate", { candidate: data.candidate });
   });
   // chấp nhận yêu cầu
