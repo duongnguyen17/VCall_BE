@@ -38,6 +38,11 @@ io.on("connection", (socket) => {
       },
     });
   });
+  //huỷ yêu cầu call
+  socket.on("cancel", (data) => {
+    console.log(`cancel`, data);
+    io.to(data.userToCall).emit("cancel");
+  });
   socket.on("candidate", (data) => {
     console.log("candidate: ", data);
     socket.broadcast.emit("candidate", { candidate: data.candidate });
